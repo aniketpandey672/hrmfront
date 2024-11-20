@@ -1,0 +1,42 @@
+
+    .cascading-right {
+      margin-right: -50px;
+    }
+
+    @media (max-width: 991.98px) {
+      .cascading-right {
+        margin-right: 0;
+      }
+    }
+    .status-icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2em;
+    }
+.asdsdsada{
+  display: flex;
+  justify-content: space-between;
+}    
+.is-invalid {
+  border-color: red;
+}
+
+.is-invalid ~ .form-label::after {
+  content: "❌";
+  color: red;
+  font-size: 1.2em;
+  margin-left: 10px;
+}
+
+.is-valid {
+  border-color: green;
+}
+
+.is-valid ~ .form-label::after {
+  color: green;
+  font-size: 1.2em;
+  margin-left: 10px;
+}
+

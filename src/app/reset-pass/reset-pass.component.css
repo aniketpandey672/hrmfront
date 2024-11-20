@@ -1,0 +1,12 @@
+.container {
+    margin-top: 50px;
+  }
+  
+  .card {
+    border-radius: 10px;
+  }
+  
+  .form-control.ng-touched.ng-invalid {
+    border-color: #dc3545; 
+  }
+  

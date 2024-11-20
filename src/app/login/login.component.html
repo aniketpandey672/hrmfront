@@ -1,0 +1,106 @@
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+          class="img-fluid" alt="Sample image">
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          
+<!-- Email -->
+<div class="form-outline mb-4">
+  <label class="form-label" for="firstName">Email</label>
+  <input style="
+  border: 1px solid black; border-radius: 8px;"
+    type="email"
+    id="email"
+    formControlName="email"
+    class="form-control form-control-lg"
+    placeholder="Enter your email"
+  />
+
+  <!-- Validation Messages -->
+  <div *ngIf="email?.touched">
+    <!-- Show "Email is required" when the field is empty -->
+    <small class="text-danger" *ngIf="email?.hasError('required')">Email is required.</small>
+    
+    <!-- Show "Please enter a valid email" only if email is not empty but invalid -->
+    <small class="text-danger" *ngIf="!email?.hasError('required') && email?.hasError('invalidEmail')">
+      Please enter a valid email.
+    </small>
+  </div>
+</div>
+
+
+
+<!-- Password Input with Eye Icon -->
+<div class="form-outline mb-3">
+  <label class="form-label" for="form3Example4">Password</label>
+
+  <div class="input-group" style="
+  border: 1px solid black; border-radius: 8px;
+">
+    <input
+      [type]="showPassword ? 'text' : 'password'"
+      id="form3Example4"
+      formControlName="password"
+      class="form-control form-control-lg"
+      placeholder="Enter password"
+      style="border-right: none;"
+    />
+    <!-- Eye icon for toggling password visibility -->
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      (click)="togglePasswordVisibility()"
+      style="border:none;"
+    >
+      <i [ngClass]="showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+    </button>
+  </div>
+
+  <!-- Password validation error messages -->
+  <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="text-danger mt-2">
+    <small *ngIf="password?.errors?.['required']">Password is required.</small>
+    <small *ngIf="password?.errors?.['minlength']">
+      Password must be at least 8 characters long.
+    </small>
+    <small *ngIf="password?.errors?.['pattern']">
+      Password must contain at least one uppercase letter, one number, and one special character ($!%*?&).
+    </small>
+  </div>
+</div>
+
+
+
+
+          <div class="d-flex justify-content-between align-items-center">
+            <!-- <div class="form-check mb-0">
+              <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+              <label class="form-check-label" for="form2Example3">Remember me</label>
+            </div> -->
+            <a (click)="navigateToResetPassword()" class="text-body">Forgot password?</a>
+          </div>
+          <div *ngIf="responseMessage" class="alert alert-danger mt-3">
+            {{ responseMessage }}
+          </div> 
+          <!-- Submit Button -->
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <button type="submit" class="btn btn-primary btn-lg"
+                    style="padding-left: 2.5rem; padding-right: 2.5rem;">
+              Login
+            </button>
+
+            
+            <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account?
+              <a (click)="navigateToSignup()" class="link-danger">Register</a>
+            </p>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+ 
+</section>

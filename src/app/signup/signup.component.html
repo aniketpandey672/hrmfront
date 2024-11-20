@@ -1,0 +1,194 @@
+<section class="text-center text-lg-start py-5">
+  <div class="container" style="max-width: 500px;">
+  
+    <div class="card bg-body-tertiary shadow-lg" style="backdrop-filter: blur(30px);">
+      <div class="card-body p-5 text-center">
+        <h2 class="fw-bold mb-4">Sign Up Now</h2>
+        
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        
+          <!-- First Name -->
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <div class="form-outline">
+                <input 
+                  type="text" 
+                  id="firstName" 
+                  class="form-control" 
+                  formControlName="firstName" 
+                  (keydown)="restrictSpecialCharacters($event)" />
+                <label class="form-label" for="firstName"><B>First Name</B></label>
+                <div *ngIf="firstName?.invalid && firstName?.touched" class="text-danger">
+                  <small *ngIf="firstName?.errors?.['required']">First name is required.</small>
+                  <small *ngIf="firstName?.errors?.['maxlength']">First name cannot exceed 20 characters.</small>
+                  <small *ngIf="firstName?.errors?.['minlength']">First name must be at least 2 characters.</small>
+                  <small *ngIf="firstName?.errors?.['pattern']">First name cannot contain special characters.</small>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Last Name -->
+            <div class="col-md-6">
+              <div class="form-outline">
+                <input 
+                  type="text" 
+                  id="lastName" 
+                  class="form-control" 
+                  formControlName="lastName" 
+                  (keydown)="restrictSpecialCharacters($event)" />
+                <label class="form-label" for="lastName"><b>Last Name</b></label>
+                <div *ngIf="lastName?.invalid && lastName?.touched" class="text-danger">
+                  <small *ngIf="lastName?.errors?.['pattern']">Last name cannot contain special characters.</small>
+                  <small *ngIf="lastName?.errors?.['maxlength']">Last name cannot exceed 20 characters.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Email -->
+<div class="form-outline mb-4">
+  <input
+    type="email"
+    id="email"
+    formControlName="email"
+    class="form-control"
+  />
+  <label class="form-label" for="email"><b>Email Address</b></label>
+  <div *ngIf="email?.touched" class="text-danger">
+    <small *ngIf="email?.hasError('required')">Email is required.</small>
+    <small *ngIf="!email?.hasError('required') && email?.hasError('invalidEmail')">
+      Please enter a valid email.
+    </small>
+  </div>
+  <div *ngIf="emailExistsError" class="text-danger">
+    <small>{{ emailExistsError }}</small>
+  </div>
+</div>
+
+
+          <!-- Gender -->
+          <div class="form-outline mb-4">
+            <label class="form-label" style="margin-right: 15px;"><b>Gender</b></label>
+            <div class="form-check form-check-inline">
+              <input 
+                class="form-check-input" 
+                type="radio" 
+                id="male" 
+                value="male" 
+                formControlName="gender" />
+              <label class="form-check-label" for="male">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input 
+                class="form-check-input" 
+                type="radio" 
+                id="female" 
+                value="female" 
+                formControlName="gender" />
+              <label class="form-check-label" for="female">Female</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input 
+                class="form-check-input" 
+                type="radio" 
+                id="other" 
+                value="other" 
+                formControlName="gender" />
+              <label class="form-check-label" for="female">Other's</label>
+            </div>
+            <div *ngIf="signupForm.get('gender')?.invalid && signupForm.get('gender')?.touched" class="text-danger">
+              <small *ngIf="signupForm.get('gender')?.hasError('required')">Gender is required.</small>
+            </div>
+          </div>
+
+
+
+          <!-- Password -->
+          <div class="form-outline mb-4">
+            <input
+              type="password"
+              id="password"
+              class="form-control"
+              formControlName="password"
+            />
+            <label class="form-label" for="password"><b>Password</b></label>
+            <div *ngIf="password?.invalid && password?.touched" class="text-danger">
+              <small *ngIf="password?.errors?.['required']">Password is required.</small>
+              <small *ngIf="password?.errors?.['minlength']">Password must be at least 8 characters.</small>
+              <small *ngIf="password?.errors?.['pattern']">Password must contain at least one uppercase letter, one number, and one special character ($!%*?&).</small>
+            </div>
+          </div>
+        
+          <!-- Confirm Password -->
+          <div class="form-outline mb-4">
+            <input
+              type="password"
+              id="confirmPassword"
+              class="form-control"
+              formControlName="confirmPassword"
+              [ngClass]="{
+                'is-invalid': confirmPassword?.invalid && confirmPassword?.touched,
+                'is-valid': confirmPassword?.valid && confirmPassword?.touched && passwordsMatch
+              }"
+            />
+            <label class="form-label" for="confirmPassword"><b>Confirm Password</b></label>
+            <div *ngIf="confirmPassword?.invalid && confirmPassword?.touched" class="text-danger">
+              <small *ngIf="confirmPassword?.errors?.['required']">Confirm Password is required.</small>
+              <small *ngIf="confirmPassword?.errors?.['passwordMismatch']">Passwords do not match.</small>
+            </div>
+          </div>
+
+
+          <!--Phone number-->
+          <div class="form-outline mb-4">
+            <input
+              type="text"
+              id="phone"
+              maxlength="10"
+              formControlName="contact"
+              class="form-control"
+              (input)="restrictSpecialCharacters2($event)"
+            />
+            <label class="form-label" for="contact"><b>Phone number</b></label>
+            <div *ngIf="contact?.touched && contact?.invalid" class="text-danger">
+              <small *ngIf="contact?.hasError('required')">Phone number is required.</small>
+              <small *ngIf="contact?.hasError('pattern')">Enter a valid 10-digit phone number that doesn't start with 0.</small>
+              <small *ngIf="contact?.hasError('allZeros')">Phone number cannot be all zeros.</small>
+            </div>
+          </div>
+          
+          
+                  
+        
+          <!-- Sign Up and Navigation Buttons -->
+          <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary btn-block mb-4">Sign Up</button>
+            <button type="button" class="btn btn-secondary btn-block mb-4" (click)="navigateToLogin()">Back to Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+<!-- Modal for Successful Signup -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Sign Up Successful</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        You have successfully signed up. Please log in to continue.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="navigateToLogin()">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</section>
+

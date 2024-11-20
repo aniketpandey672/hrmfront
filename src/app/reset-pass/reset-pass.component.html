@@ -1,0 +1,69 @@
+<div class="container mt-5">
+  <div class="card shadow p-4" style="max-width: 450px; margin: auto;">
+    <h3 class="text-center mb-4">Reset Your Password</h3>
+    <div *ngIf="passwordMismatch" class="alert alert-danger" role="alert">
+      Passwords does not match
+    </div>
+    <form [formGroup]="resetPasswordForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          class="form-control"
+          formControlName="email"
+          placeholder="Enter your email"
+        />
+        <div *ngIf="resetPasswordForm.get('email')?.invalid && resetPasswordForm.get('email')?.touched" class="text-danger">
+          Valid email is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="newPassword" class="form-label">New Password</label>
+        <input
+          type="password"
+          id="newPassword"
+          class="form-control"
+          formControlName="newPassword"
+          placeholder="Enter new password"
+        />
+        <div *ngIf="resetPasswordForm.get('newPassword')?.hasError('pattern') && resetPasswordForm.get('newPassword')?.touched" class="text-danger">
+          Password must contain at least 1 uppercase letter, 1 number, and 1 special character.
+        </div>
+        <div *ngIf="resetPasswordForm.get('newPassword')?.hasError('minlength') && resetPasswordForm.get('newPassword')?.touched" class="text-danger">
+          Password must be at least 8 characters long
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="confirmPassword" class="form-label">Confirm Password</label>
+        <input
+          type="password"
+          id="confirmPassword" class="form-control" formControlName="confirmPassword" placeholder="Confirm new password"/>
+        <div *ngIf="resetPasswordForm.get('confirmPassword')?.invalid && resetPasswordForm.get('confirmPassword')?.touched" class="text-danger">
+          Please confirm your password
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Reset Password</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Password Reset Successful</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Your password has been successfully reset.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="onNavigateToLogin()">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
